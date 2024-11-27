@@ -1,6 +1,9 @@
 ﻿using Nms.Db.Entities;
+using Nms.Db.Repositories;
 using Nms.Db.Repositories.Interfaces;
 using Nms.Services.Services.Interfaces;
+using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace Nms.Services.Services
 {
@@ -36,6 +39,20 @@ namespace Nms.Services.Services
         public async Task<Food> CreateAsync(Food food)
         {
             return await _foodRepository.InsertAsync(food);
+        }
+
+        public async Task<List<Food>> GetAllByWhereOrderedAscendingAsync(
+                Expression<Func<Food, bool>> match, Expression<Func<Food, 
+                object>> orderBy)
+        {
+            return await _foodRepository.GetAllByWhereOrderedAscendingAsync(match, orderBy);
+        }
+
+        public async Task<List<Food>> GetAllByWhereOrderedDescendingAsync(
+                Expression<Func<Food, bool>> match, Expression<Func<Food,
+                object>> orderBy)
+        {
+            return await _foodRepository.GetAllByWhereOrderedDescendingAsync(match, orderBy);
         }
     }
 }
