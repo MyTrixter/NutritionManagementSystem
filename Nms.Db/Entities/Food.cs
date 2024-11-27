@@ -1,0 +1,28 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Nms.Db.Entities
+{
+    public class Food
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        [MaxLength(100)]
+        public string Name { get; set; }
+
+        public decimal Calories { get; set; }
+
+        public decimal Protein { get; set; }
+
+        public decimal Fats { get; set; }
+
+        public decimal Carbohydrates { get; set; }
+
+        public decimal Quantity { get; set; }
+
+        [Required]
+        public int UserId { get; set; }
+        public User User { get; set; }
+    }
+}
