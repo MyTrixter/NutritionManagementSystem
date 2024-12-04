@@ -2,13 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>Nms_</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Nms.Db\Nms.Db.csproj" />
-    <ProjectReference Include="..\Nms\Nms.Core.csproj" />
-  </ItemGroup>
 
 </Project>
