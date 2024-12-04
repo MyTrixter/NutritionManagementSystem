@@ -1,0 +1,55 @@
+﻿@model Nms.Db.Entities.Food
+
+@{
+    ViewData["Title"] = "Edit Food";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" class="mb-4">
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Id)
+
+    <input type="hidden" name="UserId" value="@Model.UserId" />
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)
+        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Calories)
+        @Html.EditorFor(model => model.Calories, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Calories)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Protein)
+        @Html.EditorFor(model => model.Protein, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Protein)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Fats)
+        @Html.EditorFor(model => model.Fats, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Fats)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Carbohydrates)
+        @Html.EditorFor(model => model.Carbohydrates, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Carbohydrates)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Quantity)
+        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Quantity)
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Update
+    </button>
+</form>

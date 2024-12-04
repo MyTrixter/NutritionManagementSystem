@@ -2,18 +2,22 @@
     ViewData["Title"] = "Home";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="container mt-4">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+    <p class="text-center">Choose an action:</p>
 
-<p>Виберіть дію:</p>
-
-<div>
-    <a href="@Url.Action("CreateUser", "Home")" class="btn btn-primary">Створити користувача</a>
-</div>
-
-<div>
-    <a href="@Url.Action("CreateFood", "Home")" class="btn btn-primary">Створити їжу</a>
-</div>
-
-<div>
-    <a href="@Url.Action("FoodList", "Home")" class="btn btn-primary">Список їжі</a>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <a href="@Url.Action("Login", "Account")" class="btn btn-primary btn-block w-100">Login</a>
+        </div>
+        <div class="col-md-6 mb-3">
+            <a href="@Url.Action("Register", "Account")" class="btn btn-success btn-block w-100">Register</a>
+        </div>
+        <div class="col-md-6 mb-3">
+            <a href="@Url.Action("Main", "Food")" class="btn btn-secondary btn-block w-100">Food List</a>
+        </div>
+        <div class="col-md-6 mb-3">
+            <a href="@Url.Action("MealPlan", "Meal")" class="btn btn-dark btn-block w-100">View Meal Plan</a>
+        </div>
+    </div>
 </div>

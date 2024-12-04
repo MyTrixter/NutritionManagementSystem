@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Nms.Db.Entities.Food>
+
+@{
+    ViewData["Title"] = "Food List";
+    var currentSearch = ViewData["CurrentSearch"] as string ?? "";
+    var currentSort = ViewData["CurrentSort"] as SortOrder?;
+    var currentPage = (int)ViewData["CurrentPage"];
+    var totalPages = (int)ViewData["TotalPages"];
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="mb-4">@ViewData["Title"]</h1>
+
+            <form method="get" class="mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="searchName" class="form-label">Filter by Name:</label>
+                        <input type="text" name="searchName" value="@currentSearch" id="searchName" class="form-control" placeholder="Enter name" />
+                    </div>
+                    <div class="col-md-6 align-self-end">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                        <a href="/Food/Create" class="btn btn-success ms-2">Add New Food</a>
+                    </div>
+                </div>
+            </form>
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <a href="?sortOrder=@SortOrder.NameAsc&searchName=@currentSearch" class="btn btn-link">Name Asc</a> /
+                            <a href="?sortOrder=@SortOrder.NameDesc&searchName=@currentSearch" class="btn btn-link">Desc</a>
+                        </th>
+                        <th>
+                            <a href="?sortOrder=@SortOrder.CaloriesAsc&searchName=@currentSearch" class="btn btn-link">Calories Asc</a> /
+                            <a href="?sortOrder=@SortOrder.CaloriesDesc&searchName=@currentSearch" class="btn btn-link">Desc</a>
+                        </th>
+                        <th>Protein</th>
+                        <th>Fats</th>
+                        <th>Carbohydrates</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center">No food items found.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var food in Model)
+                        {
+                            <tr>
+                                <td>@food.Name</td>
+                                <td>@food.Calories</td>
+                                <td>@food.Protein</td>
+                                <td>@food.Fats</td>
+                                <td>@food.Carbohydrates</td>
+                                <td>@food.Quantity</td>
+                                <td>
+                                    <a href="/Food/Edit/@food.Id" class="btn btn-warning btn-sm">Edit</a>
+                                    <form method="post" action="/Food/Delete" style="display:inline;">
+                                        <input type="hidden" name="id" value="@food.Id" />
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" href="?searchName=@currentSearch&sortOrder=@currentSort&page=@(currentPage - 1)">Previous</a>
+                    </li>
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <li class="page-item @(i == currentPage ? "active" : "")">
+                            <a class="page-link" href="?searchName=@currentSearch&sortOrder=@currentSort&page=@i">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                        <a class="page-link" href="?searchName=@currentSearch&sortOrder=@currentSort&page=@(currentPage + 1)">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

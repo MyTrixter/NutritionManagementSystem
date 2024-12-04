@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Nms.Db\Nms.Db.csproj" />
     <ProjectReference Include="..\Nms.Services\Nms.Services.csproj" />
+    <ProjectReference Include="..\Nms\Nms.Core.csproj" />
   </ItemGroup>
 
 </Project>

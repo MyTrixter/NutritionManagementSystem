@@ -1,9 +1,8 @@
-﻿using Nms.Db.Entities;
-using Nms.Db.Repositories;
+﻿using Nms.Core.Enums;
+using Nms.Db.Entities;
 using Nms.Db.Repositories.Interfaces;
 using Nms.Services.Services.Interfaces;
 using System.Linq.Expressions;
-using System.Text.RegularExpressions;
 
 namespace Nms.Services.Services
 {
@@ -53,6 +52,37 @@ namespace Nms.Services.Services
                 object>> orderBy)
         {
             return await _foodRepository.GetAllByWhereOrderedDescendingAsync(match, orderBy);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var food = await _foodRepository.GetFirstWhereAsync(x => x.Id == id);
+
+            if (food == null)
+                throw new Exception("Food doesn't exist");
+
+            await _foodRepository.Delete(food);
+        }
+
+        public async Task<List<Food>> GetFilteredAndSortedFoods(int userId, string filterName, SortOrder? sortOrder)
+        {
+            var foods = await _foodRepository.FindAllByWhereAsync(x => x.UserId == userId);
+
+            if (!string.IsNullOrEmpty(filterName))
+            {
+                foods = foods.Where(f => f.Name.Contains(filterName, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            foods = sortOrder switch
+            {
+                SortOrder.NameAsc => foods.OrderBy(f => f.Name).ToList(),
+                SortOrder.NameDesc => foods.OrderByDescending(f => f.Name).ToList(),
+                SortOrder.CaloriesAsc => foods.OrderBy(f => f.Calories).ToList(),
+                SortOrder.CaloriesDesc => foods.OrderByDescending(f => f.Calories).ToList(),
+                _ => foods,
+            };
+
+            return foods;
         }
     }
 }

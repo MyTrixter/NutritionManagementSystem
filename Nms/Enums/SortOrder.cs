@@ -1,4 +1,4 @@
-﻿namespace Nms.MVC.Enums
+﻿namespace Nms.Core.Enums
 {
     public enum SortOrder
     {
