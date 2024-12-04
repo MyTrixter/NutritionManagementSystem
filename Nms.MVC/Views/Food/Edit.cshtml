@@ -4,52 +4,60 @@
     ViewData["Title"] = "Edit Food";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">@ViewData["Title"]</h1>
 
-<form method="post" class="mb-4">
-    @Html.AntiForgeryToken()
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h4 class="card-title text-center">Edit Food Item</h4>
+            <hr />
+            <form asp-action="Edit" asp-controller="Food" method="post">
+                @Html.AntiForgeryToken()
 
-    @Html.HiddenFor(model => model.Id)
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="UserId" />
 
-    <input type="hidden" name="UserId" value="@Model.UserId" />
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter food name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name)
-        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.Name)
+                <div class="form-group mb-3">
+                    <label asp-for="Calories" class="form-label"></label>
+                    <input asp-for="Calories" class="form-control" placeholder="Enter calorie value" />
+                    <span asp-validation-for="Calories" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Protein" class="form-label"></label>
+                    <input asp-for="Protein" class="form-control" placeholder="Enter protein value" />
+                    <span asp-validation-for="Protein" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Fats" class="form-label"></label>
+                    <input asp-for="Fats" class="form-control" placeholder="Enter fat value" />
+                    <span asp-validation-for="Fats" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Carbohydrates" class="form-label"></label>
+                    <input asp-for="Carbohydrates" class="form-control" placeholder="Enter carbohydrate value" />
+                    <span asp-validation-for="Carbohydrates" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Quantity" class="form-label"></label>
+                    <input asp-for="Quantity" class="form-control" placeholder="Enter quantity" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a asp-action="Main" asp-controller="Food" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Calories)
-        @Html.EditorFor(model => model.Calories, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.Calories)
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Protein)
-        @Html.EditorFor(model => model.Protein, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.Protein)
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Fats)
-        @Html.EditorFor(model => model.Fats, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.Fats)
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Carbohydrates)
-        @Html.EditorFor(model => model.Carbohydrates, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.Carbohydrates)
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Quantity)
-        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.Quantity)
-    </div>
-
-    <button type="submit" class="btn btn-primary">
-        Update
-    </button>
-</form>
+</div>
