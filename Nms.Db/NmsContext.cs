@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Nms.Db.Entities;
 
 namespace Nms.Db
 {
-    public class NmsContext : DbContext
+    public class NmsContext : IdentityDbContext<IdentityUser>
     {
         public NmsContext(DbContextOptions<NmsContext> options) : base(options)
         {
