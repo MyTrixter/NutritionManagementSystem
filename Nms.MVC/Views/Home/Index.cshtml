@@ -5,19 +5,16 @@
 <div class="container mt-4">
     <h1 class="text-center">@ViewData["Title"]</h1>
     <p class="text-center">Choose an action:</p>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="row">
 
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <a href="@Url.Action("Login", "Account")" class="btn btn-primary btn-block w-100">Login</a>
+            <div class="col-md-6 mb-3">
+                <a href="@Url.Action("Main", "Food")" class="btn btn-secondary btn-block w-100">Food List</a>
+            </div>
+            <div class="col-md-6 mb-3">
+                <a href="@Url.Action("MealPlan", "Meal")" class="btn btn-dark btn-block w-100">View Meal Plan</a>
+            </div>
         </div>
-        <div class="col-md-6 mb-3">
-            <a href="@Url.Action("Register", "Account")" class="btn btn-success btn-block w-100">Register</a>
-        </div>
-        <div class="col-md-6 mb-3">
-            <a href="@Url.Action("Main", "Food")" class="btn btn-secondary btn-block w-100">Food List</a>
-        </div>
-        <div class="col-md-6 mb-3">
-            <a href="@Url.Action("MealPlan", "Meal")" class="btn btn-dark btn-block w-100">View Meal Plan</a>
-        </div>
-    </div>
+    }
 </div>

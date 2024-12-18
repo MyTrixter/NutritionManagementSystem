@@ -5,14 +5,13 @@ using Nms.Db.Entities;
 
 namespace Nms.Db
 {
-    public class NmsContext : IdentityDbContext<IdentityUser>
+    public class NmsContext : IdentityDbContext<User>
     {
         public NmsContext(DbContextOptions<NmsContext> options) : base(options)
         {
             
         }
 
-        public DbSet<User> Users { get; set; }
         public DbSet<Food> Foods { get; set; }
         public DbSet<MealPlan> MealPlans { get; set; }
         public DbSet<MealPlanItem> MealPlanItems { get; set; }

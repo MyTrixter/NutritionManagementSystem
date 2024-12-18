@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TestScaf.MVC.Areas.Identity.Data;
 
-namespace Nms.Db;
+namespace TestScaf.MVC.Data;
 
-public class NmsContext : IdentityDbContext<IdentityUser>
+public class Context : IdentityDbContext<User>
 {
-    public NmsContext(DbContextOptions<NmsContext> options)
+    public Context(DbContextOptions<Context> options)
         : base(options)
     {
     }

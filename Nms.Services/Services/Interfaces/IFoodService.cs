@@ -6,12 +6,12 @@ namespace Nms.Services.Services.Interfaces
 {
     public interface IFoodService
     {
-        Task<List<Food>> GetAllByUserIdAsync(int userId);
-        Task<Food> GetByIdAsync(int id);
+        Task<List<Food>> GetAllByUserIdAsync(Guid userId);
+        Task<Food> GetByIdAsync(Guid id);
         Task<Food> UpdateAsync(Food food);
         Task<Food> CreateAsync(Food food);
-        Task DeleteAsync(int id);
-        Task<List<Food>> GetFilteredAndSortedFoods(int userId, string filterName, SortOrder? sortOrder);
+        Task DeleteAsync(Guid id);
+        Task<List<Food>> GetFilteredAndSortedFoods(Guid userId, string filterName, SortOrder? sortOrder);
         public Task<List<Food>> GetAllByWhereOrderedAscendingAsync(
             Expression<Func<Food, bool>> match,
             Expression<Func<Food, object>> orderBy);

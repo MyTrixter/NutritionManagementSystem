@@ -5,15 +5,15 @@ using Nms.Db.Repositories.Interfaces;
 using Nms.Services.Services;
 using Nms.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Nms.Db.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<NmsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<NmsContext>();
+builder.Services.AddDefaultIdentity<User>(options => 
+    options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<NmsContext>();
 
 builder.Services.AddTransient<IFoodService, FoodService>();
 builder.Services.AddTransient<IMealPlanService, MealPlanService>();
@@ -26,6 +26,8 @@ builder.Services.AddTransient<IMealPlanRepository, MealPlanRepository>();
 builder.Services.AddTransient<IMealPlanItemRepository, MealPlanItemRepository>();
 builder.Services.AddTransient<IScheduledMealPlanRepository, ScheduledMealPlanRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -45,5 +47,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();

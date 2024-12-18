@@ -1,20 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace Nms.Db.Entities
 {
-    public class User
+    public class User : IdentityUser
     {
-        [Key]
-        public int Id { get; set; }
-
-        [Required]
-        [MaxLength(100)]
-        public string Username { get; set; }
-   
-        [Required]
-        [MaxLength(100)]
-        public string PasswordHash { get; set; }
-
         public ICollection<Food> Foods { get; set; } 
         public ICollection<MealPlan> MealPlans { get; set; } 
     }

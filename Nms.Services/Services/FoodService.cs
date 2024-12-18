@@ -15,12 +15,12 @@ namespace Nms.Services.Services
             _foodRepository = foodRepository;
         }
 
-        public async Task<List<Food>> GetAllByUserIdAsync(int userId)
+        public async Task<List<Food>> GetAllByUserIdAsync(Guid userId)
         {
             return await _foodRepository.FindAllByWhereAsync(x => x.UserId == userId);
         }
 
-        public async Task<Food> GetByIdAsync(int id)
+        public async Task<Food> GetByIdAsync(Guid id)
         {
             var food = await _foodRepository.GetFirstWhereAsync(x => x.Id == id);
 
@@ -54,7 +54,7 @@ namespace Nms.Services.Services
             return await _foodRepository.GetAllByWhereOrderedDescendingAsync(match, orderBy);
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             var food = await _foodRepository.GetFirstWhereAsync(x => x.Id == id);
 
@@ -64,7 +64,7 @@ namespace Nms.Services.Services
             await _foodRepository.Delete(food);
         }
 
-        public async Task<List<Food>> GetFilteredAndSortedFoods(int userId, string filterName, SortOrder? sortOrder)
+        public async Task<List<Food>> GetFilteredAndSortedFoods(Guid userId, string filterName, SortOrder? sortOrder)
         {
             var foods = await _foodRepository.FindAllByWhereAsync(x => x.UserId == userId);
 

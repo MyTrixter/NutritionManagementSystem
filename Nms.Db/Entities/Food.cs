@@ -5,7 +5,7 @@ namespace Nms.Db.Entities
     public class Food
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -22,7 +22,7 @@ namespace Nms.Db.Entities
         public decimal Quantity { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public User User { get; set; }
     }
 }

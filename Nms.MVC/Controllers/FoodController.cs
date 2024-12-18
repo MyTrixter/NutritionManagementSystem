@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Nms.Core.Enums;
 using Nms.Db.Entities;
 using Nms.Services.Services.Interfaces;
@@ -12,17 +13,24 @@ public class FoodController : Controller
         _foodService = foodService;
     }
 
+    [Authorize]
     public IActionResult Index()
     {
         return View();
     }
 
+    [Authorize]
     public async Task<IActionResult> Main(string searchName, SortOrder? sortOrder, int page = 1, int pageSize = 5)
     {
         ViewData["CurrentSearch"] = searchName;
         ViewData["CurrentSort"] = sortOrder;
 
-        var foods = await _foodService.GetFilteredAndSortedFoods(1, searchName, sortOrder);
+        var userIdString = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        Guid userId;
+
+        Guid.TryParse(userIdString, out userId);
+
+        var foods = await _foodService.GetFilteredAndSortedFoods(userId, searchName, sortOrder);
 
         int totalItems = foods.Count();
         var paginatedFoods = foods
@@ -37,12 +45,14 @@ public class FoodController : Controller
     }
 
     [HttpGet]
+    [Authorize]
     public IActionResult Create()
     {
         return View();
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create(Food food)
     {
         //if (!ModelState.IsValid)
@@ -50,7 +60,11 @@ public class FoodController : Controller
         //    return View(food);
         //}    
 
-        food.UserId = 1;
+        var userIdString = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        Guid userId;
+
+        Guid.TryParse(userIdString, out userId);
+        food.UserId = userId;
 
         var createdFood = await _foodService.CreateAsync(food);
 
@@ -58,7 +72,8 @@ public class FoodController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Delete(int id)
+    [Authorize]
+    public async Task<IActionResult> Delete(Guid id)
     {
         var foodItem = await _foodService.GetByIdAsync(id);
         if (foodItem == null)
@@ -72,7 +87,8 @@ public class FoodController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Edit(int id)
+    [Authorize]
+    public async Task<IActionResult> Edit(Guid id)
     {
         var food = await _foodService.GetByIdAsync(id);
         if (food == null)
@@ -84,7 +100,8 @@ public class FoodController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Edit(int id, Food food)
+    [Authorize]
+    public async Task<IActionResult> Edit(Guid id, Food food)
     {
         if (id != food.Id)
         {
